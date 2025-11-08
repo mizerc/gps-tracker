@@ -2,50 +2,27 @@
 
 A React Native app built with Expo that tracks GPS coordinates (latitude, longitude) every minute and persists the data locally.
 
-
 ## Screenshots
 
 <table align="center">
   <tr>
     <td align="center">
-      <img src="screenshots/ss1.png" alt="Tracks List" width="400" /><br/>
-      Tracks List
+      <b>Tracks List</b><br/>
+      <img src="screenshots/ss1.png" alt="Tracks List screen showing GPS tracks" title="Tracks List" width="300" />
+    </td>
+    <td align="center">
+      <b>Settings</b><br/>
+      <img src="screenshots/ss2.png" alt="Settings screen with tracking toggle" title="Settings" width="300" />
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="screenshots/ss3.png" alt="Map Screen" width="400" /><br/>
-      Map Screen
+      <b>Map Screen</b><br/>
+      <img src="screenshots/ss3.png" alt="Map screen with tracked locations" title="Map Screen" width="300" />
     </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="screenshots/ss2.png" alt="Settings" width="400" /><br/>
-      Settings
-    </td>
+    <td></td>
   </tr>
 </table>
-
-
-
-<<<<<<< Updated upstream
-<img src="screenshots/ss1.png" alt="ss1" wdith=350 />
-=======
->>>>>>> Stashed changes
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## Features
@@ -100,6 +77,7 @@ A React Native app built with Expo that tracks GPS coordinates (latitude, longit
 ## Usage
 
 ### Tracks Tab
+
 - View all collected GPS tracks
 - Each track shows:
   - Timestamp
@@ -111,6 +89,7 @@ A React Native app built with Expo that tracks GPS coordinates (latitude, longit
 - Clear all tracks with the "Clear All Tracks" button
 
 ### Settings Tab
+
 - Toggle GPS tracking on/off
 - View statistics (total tracks, interval)
 - Test current location
@@ -121,11 +100,13 @@ A React Native app built with Expo that tracks GPS coordinates (latitude, longit
 The app requires the following permissions:
 
 **iOS:**
+
 - Location When In Use
 - Location Always (for background tracking)
 - iCloud Drive (for backup/restore functionality)
 
 **Android:**
+
 - ACCESS_FINE_LOCATION
 - ACCESS_COARSE_LOCATION
 - ACCESS_BACKGROUND_LOCATION
@@ -158,12 +139,14 @@ These permissions are configured in `app.json` and will be requested when you fi
 ### Using iCloud Backup (iOS)
 
 **Exporting Tracks:**
+
 1. Go to the Tracks tab
 2. Tap "📤 Export to iCloud"
 3. Choose where to save the file (iCloud Drive, Files app, etc.)
 4. Your tracks are saved as a JSON file with metadata
 
 **Importing Tracks:**
+
 1. Go to the Tracks tab
 2. Tap "📥 Import"
 3. Choose to either:
@@ -173,6 +156,7 @@ These permissions are configured in `app.json` and will be requested when you fi
 5. Tracks are imported and displayed immediately
 
 The exported file contains:
+
 - Export date and time
 - App version
 - Total number of tracks
@@ -181,6 +165,7 @@ The exported file contains:
 ## Development
 
 This project uses:
+
 - TypeScript for type safety
 - Expo Router for navigation
 - React hooks for state management
