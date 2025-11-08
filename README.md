@@ -22,6 +22,13 @@ A React Native app built with Expo that tracks GPS coordinates (latitude, longit
     </td>
     <td></td>
   </tr>
+    <tr>
+    <td align="center">
+      <b>Export Data Feature</b><br/>
+      <img src="screenshots/ss4.png" alt="Map screen with tracked locations" title="Map Screen" width="300" />
+    </td>
+    <td></td>
+  </tr>
 </table>
 
 
