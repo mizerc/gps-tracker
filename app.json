@@ -19,18 +19,7 @@
         ],
         "UIFileSharingEnabled": true,
         "LSSupportsOpeningDocumentsInPlace": true
-      },
-      // "entitlements": {
-        // "com.apple.developer.icloud-container-identifiers": [
-        //   "iCloud.com.aigpstracker.app"
-        // ],
-        // "com.apple.developer.ubiquity-container-identifiers": [
-        //   "iCloud.com.aigpstracker.app"
-        // ],
-        // "com.apple.developer.icloud-services": [
-        //   "CloudDocuments"
-        // ]
-      // }
+      }
     },
     "android": {
       "adaptiveIcon": {
