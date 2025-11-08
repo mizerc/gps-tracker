@@ -7,15 +7,15 @@ A React Native app built with Expo that tracks GPS coordinates (latitude, longit
 
 ### List Locations Screen
 
-<img src="screenshots/ss1.png" alt="ss1" style="max-width: 400px;" />
+<img src="screenshots/ss1.png" alt="ss1" wdith="350px" />
 
 ### Map Screen
 
-<img src="screenshots/ss3.png" alt="ss3" style="max-width: 400px;" />
+<img src="screenshots/ss3.png" alt="ss3" wdith="350px" />
 
 ### Settings Screen
 
-<img src="screenshots/ss2.png" alt="ss2" style="max-width: 400px;" />
+<img src="screenshots/ss2.png" alt="ss2" wdith="350px" />
 
 
 
