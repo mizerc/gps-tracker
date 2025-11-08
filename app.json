@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "ai-gps-tracker",
-    "slug": "ai-gps-tracker",
+    "name": "gps-tracker",
+    "slug": "gps-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "aigpstracker",
+    "scheme": "gps-tracker",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.aigpstracker.app",
+      "bundleIdentifier": "com.gpstracker.app",
       "infoPlist": {
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app needs access to your location to track GPS coordinates.",
         "NSLocationWhenInUseUsageDescription": "This app needs access to your location to track GPS coordinates.",

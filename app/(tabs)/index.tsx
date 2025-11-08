@@ -1,16 +1,13 @@
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useThemeColor } from "@/hooks/use-theme-color";
-import { icloudService } from "@/services/icloudService";
 import { GPSTrack, storageService } from "@/services/storage";
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useCallback, useState } from "react";
 import {
-  Alert,
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -36,88 +33,6 @@ export default function TracksScreen() {
       loadTracks();
     }, [])
   );
-
-  const handleClearTracks = () => {
-    Alert.alert(
-      "Clear All Tracks",
-      "Are you sure you want to delete all GPS tracks? This action cannot be undone.",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: async () => {
-            await storageService.clearTracks();
-            await loadTracks();
-          },
-        },
-      ]
-    );
-  };
-
-  const handleExportToICloud = async () => {
-    Alert.alert("Feature Disabled", "iCloud backup is currently disabled.");
-    return false;
-  };
-
-  const handleImportFromICloud = () => {
-    Alert.alert("Feature Disabled", "iCloud backup is currently disabled.");
-    return false;
-
-    Alert.alert("Import GPS Tracks", "Choose how to import your GPS tracks:", [
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
-      {
-        text: "Replace Current",
-        style: "destructive",
-        onPress: async () => {
-          const importedTracks = await icloudService.importFromICloud();
-          if (importedTracks) {
-            await storageService.clearTracks();
-            for (const track of importedTracks) {
-              await storageService.addTrack({
-                latitude: track.latitude,
-                longitude: track.longitude,
-                timestamp: track.timestamp,
-                accuracy: track.accuracy,
-              });
-            }
-            await loadTracks();
-            Alert.alert(
-              "Import Successful",
-              `Imported ${importedTracks.length} GPS tracks.`
-            );
-          }
-        },
-      },
-      {
-        text: "Merge with Current",
-        onPress: async () => {
-          const importedTracks = await icloudService.importFromICloud();
-          if (importedTracks) {
-            for (const track of importedTracks) {
-              await storageService.addTrack({
-                latitude: track.latitude,
-                longitude: track.longitude,
-                timestamp: track.timestamp,
-                accuracy: track.accuracy,
-              });
-            }
-            await loadTracks();
-            Alert.alert(
-              "Import Successful",
-              `Imported ${importedTracks.length} GPS tracks and merged with existing data.`
-            );
-          }
-        },
-      },
-    ]);
-  };
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -186,37 +101,13 @@ export default function TracksScreen() {
           </ThemedText>
         </View>
       ) : (
-        <>
-          <FlatList
-            data={tracks}
-            renderItem={renderTrackItem}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={styles.listContent}
-            showsVerticalScrollIndicator={false}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.buttonRow}>
-              <TouchableOpacity
-                style={[styles.actionButton, { backgroundColor: tintColor }]}
-                onPress={handleExportToICloud}
-              >
-                <Text style={styles.actionButtonText}>📤 Export to iCloud</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.actionButton, { backgroundColor: tintColor }]}
-                onPress={handleImportFromICloud}
-              >
-                <Text style={styles.actionButtonText}>📥 Import</Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              style={[styles.clearButton, { backgroundColor: "#ff4444" }]}
-              onPress={handleClearTracks}
-            >
-              <Text style={styles.clearButtonText}>Clear All Tracks</Text>
-            </TouchableOpacity>
-          </View>
-        </>
+        <FlatList
+          data={tracks}
+          renderItem={renderTrackItem}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+        />
       )}
     </ThemedView>
   );
@@ -258,34 +149,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     paddingHorizontal: 20,
-    paddingBottom: 160,
-  },
-  buttonContainer: {
-    position: "absolute",
-    bottom: 30,
-    left: 20,
-    right: 20,
-  },
-  buttonRow: {
-    flexDirection: "row",
-    gap: 10,
-    marginBottom: 10,
-  },
-  actionButton: {
-    flex: 1,
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  actionButtonText: {
-    color: "#ffffff",
-    fontSize: 14,
-    fontWeight: "600",
+    paddingBottom: 20,
   },
   trackItem: {
     paddingVertical: 16,
@@ -315,20 +179,5 @@ const styles = StyleSheet.create({
   },
   detail: {
     fontSize: 12,
-  },
-  clearButton: {
-    padding: 16,
-    borderRadius: 12,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  clearButtonText: {
-    color: "#ffffff",
-    fontSize: 16,
-    fontWeight: "600",
   },
 });

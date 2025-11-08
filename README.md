@@ -2,6 +2,32 @@
 
 A React Native app built with Expo that tracks GPS coordinates (latitude, longitude) every minute and persists the data locally.
 
+
+## Screenshots
+
+### List Locations Screen
+
+<img src="screenshots/ss1.png" alt="ss1" style="max-width: 400px;" />
+
+### Map Screen
+
+<img src="screenshots/ss3.png" alt="ss3" style="max-width: 400px;" />
+
+### Settings Screen
+
+<img src="screenshots/ss2.png" alt="ss2" style="max-width: 400px;" />
+
+
+
+
+
+
+
+
+
+
+
+
 ## Features
 
 - 📍 **GPS Tracking**: Automatically tracks your location every 60 seconds

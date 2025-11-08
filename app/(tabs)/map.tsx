@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState, useCallback, useRef } from 'react';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import MapView, { Marker, Polyline, PROVIDER_DEFAULT } from 'react-native-maps';
 import { useFocusEffect } from '@react-navigation/native';
 import { storageService, GPSTrack } from '@/services/storage';
@@ -18,6 +18,7 @@ export default function MapScreen() {
   });
   const [userLocation, setUserLocation] = useState<Location.LocationObject | null>(null);
   const colorScheme = useColorScheme();
+  const mapRef = useRef<MapView>(null);
 
   const loadTracks = async () => {
     try {
@@ -90,9 +91,30 @@ export default function MapScreen() {
     });
   };
 
+  const handleZoomIn = () => {
+    const newRegion = {
+      ...region,
+      latitudeDelta: region.latitudeDelta / 2,
+      longitudeDelta: region.longitudeDelta / 2,
+    };
+    setRegion(newRegion);
+    mapRef.current?.animateToRegion(newRegion, 300);
+  };
+
+  const handleZoomOut = () => {
+    const newRegion = {
+      ...region,
+      latitudeDelta: region.latitudeDelta * 2,
+      longitudeDelta: region.longitudeDelta * 2,
+    };
+    setRegion(newRegion);
+    mapRef.current?.animateToRegion(newRegion, 300);
+  };
+
   return (
     <ThemedView style={styles.container}>
       <MapView
+        ref={mapRef}
         style={styles.map}
         provider={PROVIDER_DEFAULT}
         region={region}
@@ -144,6 +166,22 @@ export default function MapScreen() {
           </ThemedText>
         )}
       </View>
+
+      {/* Zoom Controls */}
+      <View style={styles.zoomControls}>
+        <TouchableOpacity
+          style={[styles.zoomButton, colorScheme === 'dark' && styles.zoomButtonDark]}
+          onPress={handleZoomIn}
+        >
+          <Text style={styles.zoomButtonText}>+</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.zoomButton, styles.zoomButtonBottom, colorScheme === 'dark' && styles.zoomButtonDark]}
+          onPress={handleZoomOut}
+        >
+          <Text style={styles.zoomButtonText}>−</Text>
+        </TouchableOpacity>
+      </View>
     </ThemedView>
   );
 }
@@ -181,6 +219,36 @@ const styles = StyleSheet.create({
     fontSize: 12,
     opacity: 0.8,
     marginTop: 4,
+  },
+  zoomControls: {
+    position: 'absolute',
+    bottom: 120,
+    right: 20,
+    flexDirection: 'column',
+  },
+  zoomButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  zoomButtonDark: {
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+  },
+  zoomButtonBottom: {
+    marginTop: 10,
+  },
+  zoomButtonText: {
+    fontSize: 28,
+    fontWeight: '300',
+    color: '#007AFF',
   },
 });
 
